@@ -33,5 +33,6 @@ int main() {
     else {
         std::cout << c;
     }
+return 0;
 }
 ```
