@@ -36,3 +36,30 @@ int main() {
 return 0;
 }
 ```
+```
+#include <iostream>
+#include <cmath>
+int main()
+{
+    double a, b, c, x, D, x1, x2;
+    std::cin >> a >> b >> c;
+    D = b * b - 4 * a * c;
+    if (D == 0)
+    {
+        x = (-b) / (2 * a);
+        std::cout << x;
+     }
+    if (D > 0)
+    {
+        x1 = (-b + sqrt(D)) / (2 * a);
+        x2 = (-b - sqrt(D)) / (2 * a);
+        std::cout << x1 << " " << x2 << std::endl;
+    }
+    if (D < 0) {
+        std::cout << "No korney";
+    }
+    if (a == 0) {
+        std::cout << "Ne kvvadratnoye uravnenie";
+    }
+}
+```
