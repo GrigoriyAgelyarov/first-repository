@@ -63,3 +63,90 @@ int main()
     }
 }
 ```
+```
+/* 1)/#include <iostream>
+
+int main()
+{
+    const double aperc = 0.1, bperc = 0.05;
+    double abal, bbal, peep;
+    int cnt = 0;
+    std::cin >> abal >> bbal;
+    peep = abal;
+    if (bbal >= abal) {
+        std::cout << cnt;
+    }
+    while (abal > bbal) {
+        cnt++;
+        abal += aperc * peep;
+        bbal += bperc * bbal;
+        std::cout << "Year: " << cnt << " Anna's balance: " << abal << " Boris's balance: " << bbal << std::endl;
+    }
+
+
+
+
+
+}
+*/
+/* 2)#include <iostream>
+
+int main(){
+    const double perc1 = 0.0, perc2 = 0.1, perc3 = 0.15, perc4 = 0.2, gate1 = 5000, gate2 = 10000, gate3=20000, gate4=35000;
+    double Sum;
+    std::cin >> Sum;
+    double cnt = 0;
+    if (Sum < 0) {
+
+    }
+    while (Sum > 0) {
+        if (Sum <= gate1) {
+            Sum = Sum - gate1;
+            std::cout << cnt;
+        }
+        if (Sum <= gate2 && Sum > gate1) {
+            cnt = (gate1 * perc1) + ((gate2 - gate1) * perc2);
+            Sum = Sum - gate1 - gate2;
+            std::cout << cnt;
+        }
+        if (Sum <= gate3 && Sum > gate2) {
+            cnt = (gate1 * perc1) + ((gate2) * perc2) + ((Sum - gate1 - gate2)*perc3);
+            Sum = Sum - gate1 - gate2 - gate3;
+            std::cout << cnt;
+        }
+        if (Sum <= gate4 && Sum > gate3) {
+            cnt = (gate1 * perc1) + ((gate2) * perc2) + ((gate3) * perc3) + ((Sum - gate1 - gate2 - gate3) * perc4);
+            Sum = Sum - gate1 - gate2 - gate3 - gate4;
+            std::cout << cnt;
+        }
+        if (Sum > gate4) {
+            cnt = (gate1 * perc1) + ((gate2) * perc2) + ((gate3) * perc3) + ((gate4) * perc4) + ((Sum - gate1 - gate2 - gate3 - gate4) * perc4);
+            Sum = Sum - gate1 - gate2 - gate3 - gate4;
+            std::cout << cnt;
+        }
+
+    }
+}
+*/
+
+#include <iostream>
+
+int main() {
+    int n;
+    double sum = 0, middle, g;
+    std::cin >> n;
+
+    for (int i = 1; i <= n; ++i) {
+        
+        std::cin >> g;
+        sum += g;
+        middle = sum / i;  
+        std::cout << "Arithmetic mean: " << middle << std::endl;
+    }
+
+    return 0;
+}
+
+
+
+```
