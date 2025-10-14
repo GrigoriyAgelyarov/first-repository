@@ -109,3 +109,49 @@ int main() {
       return 0;
 }
 ```
+```
+#include <iostream>
+
+int main()
+{
+	int n, m;
+	std::cout << "Enter columns: " << std::endl;
+	std::cin >> m;
+	std::cout << "Enter lines: "<<std::endl;
+	std::cin >> n;
+	int** mas;
+	mas = new int* [m];
+	for (int i = 0; i < m; ++i) {
+		mas[i] = new int[n];
+	}
+	std::cout << "If you want your own massive, please, enter : '1' " << std::endl;
+	std::cout << "If you want random massive, please, enter : '2' " << std::endl;
+	int choose;
+	std::cin >> choose;
+	if (choose == 1) {
+
+	}
+
+	if (choose == 2) {
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+	for (int i = 0; i < m; ++i) {
+		delete[] mas[n];
+	}
+	delete[] mas[m];
+}
+
+```
