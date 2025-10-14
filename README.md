@@ -200,8 +200,8 @@ double MultiplyIJK(double**& mas1, double**& mas2, double**& mas3, int size) {
 	}
 	auto finish = std::chrono::steady_clock::now();
 	std::chrono::duration<double> time = finish - start;
-	std::cout << "Time= " << time.count() << "seconds";
 	
+	return time.count();
 	
 }
 
