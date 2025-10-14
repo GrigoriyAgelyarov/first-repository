@@ -155,3 +155,79 @@ int main()
 }
 
 ```
+```
+#include <iostream>
+#include <cmath>
+#include <chrono>
+
+
+
+
+void AllocateMemory( double**& mas, int size) {
+	mas = new double* [size];
+	for (int i = 0; i < size; ++i) {
+		mas[i] = new double[size];
+	}
+	
+}
+void FillAB(double**& mas1, double**& mas2, int size) {
+	for (int i = 0; i < size; ++i) {
+		for (int j = 0; j < size; ++j) {
+			mas1[i][j] = std::sin(i-j);
+		}
+	}
+	for (int i = 0; i < size; ++i) {
+		for (int j = 0; j < size; ++j) {
+			mas2[i][j] = 1.0/(i+j+1.0);
+		}
+	}
+}
+void FillZero(double**& mas, int size) {
+	for (int i = 0; i < size; ++i) {
+		for (int j = 0; j < size; ++j) {
+			mas[i][j] = 0;
+		}
+	}
+}
+double MultiplyIJK(double**& mas1, double**& mas2, double**& mas3, int size) {
+	auto start = std::chrono::steady_clock::now();
+	for (int i = 0; i < size; ++i) {
+		for (int j = 0; j < size; ++j) {
+			for (int k = 0; k < size; ++k) {
+				mas3[i][j] += mas1[i][k] * mas2[k][j];
+			}
+		}
+	}
+	auto finish = std::chrono::steady_clock::now();
+	std::chrono::duration<double> time = finish - start;
+	std::cout << "Time= " << time.count() << "seconds";
+	
+	
+}
+
+void ReleaseMemory(double**& mas, int size) {
+	for (int i = 0; i < size; ++i) {
+		delete[] mas[size];
+	}
+	delete[] mas;
+}
+
+int main()
+{
+	int  n;
+	std::cin >> n;
+	double** A;
+	double** B;
+	double** C;
+	AllocateMemory(A, n);
+	AllocateMemory(B, n);
+	AllocateMemory(C, n);
+	FillAB(A, B, n);
+	FillZero(C, n);
+	MultiplyIJK(A, B, C, n);
+	ReleaseMemory(A, n);
+	ReleaseMemory(B, n);
+	ReleaseMemory(C, n);
+	
+}
+```
