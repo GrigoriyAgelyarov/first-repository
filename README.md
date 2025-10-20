@@ -158,77 +158,66 @@ int main()
 ```
 #include <iostream>
 #include <cmath>
-#include <chrono>
-
-
-
-
-void AllocateMemory( double**& mas, int size) {
-	mas = new double* [size];
-	for (int i = 0; i < size; ++i) {
-		mas[i] = new double[size];
-	}
-	
-}
-void FillAB(double**& mas1, double**& mas2, int size) {
-	for (int i = 0; i < size; ++i) {
-		for (int j = 0; j < size; ++j) {
-			mas1[i][j] = std::sin(i-j);
-		}
-	}
-	for (int i = 0; i < size; ++i) {
-		for (int j = 0; j < size; ++j) {
-			mas2[i][j] = 1.0/(i+j+1.0);
-		}
-	}
-}
-void FillZero(double**& mas, int size) {
-	for (int i = 0; i < size; ++i) {
-		for (int j = 0; j < size; ++j) {
-			mas[i][j] = 0;
-		}
-	}
-}
-double MultiplyIJK(double**& mas1, double**& mas2, double**& mas3, int size) {
-	auto start = std::chrono::steady_clock::now();
-	for (int i = 0; i < size; ++i) {
-		for (int j = 0; j < size; ++j) {
-			for (int k = 0; k < size; ++k) {
-				mas3[i][j] += mas1[i][k] * mas2[k][j];
-			}
-		}
-	}
-	auto finish = std::chrono::steady_clock::now();
-	std::chrono::duration<double> time = finish - start;
-	
-	return time.count();
-	
-}
-
-void ReleaseMemory(double**& mas, int size) {
-	for (int i = 0; i < size; ++i) {
-		delete[] mas[size];
-	}
-	delete[] mas;
-}
-
 int main()
 {
-	int  n;
-	std::cin >> n;
-	double** A;
-	double** B;
-	double** C;
-	AllocateMemory(A, n);
-	AllocateMemory(B, n);
-	AllocateMemory(C, n);
-	FillAB(A, B, n);
-	FillZero(C, n);
-	MultiplyIJK(A, B, C, n);
-	ReleaseMemory(A, n);
-	ReleaseMemory(B, n);
-	ReleaseMemory(C, n);
-	
+    long double  a, b, c, x, D, x1, x2;
+    std::cin >> a >> b >> c;
+    D = b * b - 4 * a * c;
+    if (a == 0 && b == 0 && c == 0) {
+        std::cout << "X any value";
+    }
+    if (a == 0 && b == 0 && c != 0) {
+        std::cout << "False";
+    }
+    if (a == 0 && b != 0 && c == 0) {
+        x = 0;
+        std::cout << x;
+    }
+    if (a == 0 && b!=0 && c!=0) {
+        std::cout << "Not a quadratic equation";
+        x = c / b;
+        std::cout << x;
+    }
+    if (b == 0 && a!=0 && c!=0) {
+        if ((a > 0 && c < 0) && (a<0 && c>0)) {
+            x1 = sqrt(c / a);
+            x2 = -sqrt(c / a);
+            std::cout << x1 << " " << x2;
+        }
+        else {
+            std::cout << "No solutions";
+        }
+    }
+    if (a != 0 && b == 0 && c == 0) {
+        x = 0;
+        std::cout << x;
+    }
+    if (a != 0 && b != 0 && c == 0) {
+        x1 = 0;
+        x2 = -(b / a);
+        std::cout << x1 << " " << x2;
+    }
+
+
+
+
+   
+    if (D == 0)
+    {
+        x = (-b) / (2 * a);
+        std::cout << x;
+     }
+    if (D > 0)
+    {
+        x1 = (-b + sqrt(D)) / (2 * a);
+        x2 = (-b - sqrt(D)) / (2 * a);
+        std::cout << x1 << " " << x2 << std::endl;
+    }
+    if (D < 0) {
+        std::cout << "No solutions";
+    }
+    
+   
 }
 ```
 ```
