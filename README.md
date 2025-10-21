@@ -296,3 +296,121 @@ int main()
 	return 0;
 }
 ```
+```
+#include <iostream>
+#include <cstdlib>
+#include <algorithm>
+int main()
+{ 
+	int n, m;
+	std::cout << "Enter lines: " << std::endl;
+	std::cin >> m;
+	std::cout << "Enter columns: " << std::endl;
+	std::cin >> n;
+	int** mas;
+	mas = new int* [m];
+	for (int i = 0; i < m; ++i) {
+		mas[i] = new int[n];
+	}
+	std::cout << "If you want your own massive, please, enter : '1' " << std::endl;
+	std::cout << "If you want random massive, please, enter : '2' " << std::endl;
+	int choose;
+	std::cin >> choose;
+	if (choose == 1) {
+		for (int i = 0; i < m;++i) {
+			for (int j = 0; j < n; ++j) {
+				std::cin >> mas[i][j];
+			}
+		}
+	}
+	if (choose == 2) {
+		for (int i = 0; i < m;++i) {
+			for (int j = 0; j < n; ++j) {
+				mas[i][j] = rand();
+			}
+		}
+	}
+
+	for (int i = 0; i < m;++i) {
+		for (int j = 0; j < n; ++j) {
+			std::cout << mas[i][j] << " ";
+		}
+		std::cout << std::endl;
+	}
+	//на строчки
+	int cnt = 0;
+	int cntstring=0;
+	int min=2147483647;
+	for (int i = 0; i < m; ++i) {
+		cnt = 0;
+		
+		for (int j = 0; j < n; ++j) {
+			cnt += mas[i][j];
+			
+		}
+		
+		if (cnt < min) {
+			min = cnt;
+			cntstring = i;
+		}
+	}
+	
+	++cntstring;
+	//std::cout << cntstring << std::endl;
+
+
+	for (int i = (cntstring-1); i < (m-1); ++i) {
+		for (int j = 0; j < n; ++j) {
+			std::swap(mas[i][j], mas[i + 1][j]);
+		}
+	}
+
+
+// столбцы
+	int cnt2=0;
+	int cntcolumns=0;
+	int max = 0;
+	for (int j = 0; j < n;++j) {
+		cnt2 = 0;
+		for (int i = 0; i < m; ++i) {
+			cnt2 += mas[i][j];
+		}
+		if (cnt2 > max) {
+			max = cnt2;
+			cntcolumns = j;
+		}
+	}
+	++cntcolumns;
+	/*std::cout << cntcolumns<<std::endl;*/
+
+	for (int j = (cntcolumns - 1); j<(n-1) ; ++j) {
+		for (int i = 0; i < n; ++i) {
+			std::swap(mas[i][j], mas[i][j+1]);
+		}
+	}
+
+
+
+
+
+	for (int i = 0; i < m;++i) {
+		for (int j = 0; j < n; ++j) {
+			std::cout << mas[i][j] << " ";
+		}
+		std::cout << std::endl;
+	}
+
+
+
+
+
+	for (int i = 0; i < m; ++i) {
+		delete[] mas[n];
+	}
+	delete[] mas[m];
+
+
+
+	return 0;
+}
+```
