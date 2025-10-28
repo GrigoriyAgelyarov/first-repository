@@ -432,7 +432,7 @@ int main()
 
 ```
 #include <iostream>
-#include <cstdlib>
+#include <random> 
 #include <algorithm>
 int main()
 { 
@@ -446,6 +446,9 @@ int main()
 	for (int i = 0; i < m; ++i) {
 		mas[i] = new int[n];
 	}
+	int min, max;
+	
+	
 	std::cout << "If you want your own massive, please, enter : '1' " << std::endl;
 	std::cout << "If you want random massive, please, enter : '2' " << std::endl;
 	int choose;
@@ -454,6 +457,8 @@ int main()
 		for (int i = 0; i < m;++i) {
 			for (int j = 0; j < n; ++j) {
 				std::cin >> mas[i][j];
+				
+				
 			}
 		}
 	}
@@ -471,10 +476,13 @@ int main()
 		}
 		std::cout << std::endl;
 	}
+	min = mas[0][0];
+	max = mas[0][0];
 	//на строчки
 	int cnt = 0;
 	int cntstring=0;
-	int min=2147483647;
+	
+	
 	for (int i = 0; i < m; ++i) {
 		cnt = 0;
 		
@@ -489,11 +497,11 @@ int main()
 		}
 	}
 	
-	++cntstring;
+	/*++cntstring;*/
 	//std::cout << cntstring << std::endl;
 
 
-	for (int i = (cntstring-1); i < (m-1); ++i) {
+	for (int i = cntstring; i < (m-1); ++i) {
 		for (int j = 0; j < n; ++j) {
 			std::swap(mas[i][j], mas[i + 1][j]);
 		}
@@ -514,10 +522,9 @@ int main()
 			cntcolumns = j;
 		}
 	}
-	++cntcolumns;
 	/*std::cout << cntcolumns<<std::endl;*/
 
-	for (int j = (cntcolumns - 1); j<(n-1) ; ++j) {
+	for (int j = cntcolumns; j<(n-1) ; ++j) {
 		for (int i = 0; i < n; ++i) {
 			std::swap(mas[i][j], mas[i][j+1]);
 		}
@@ -538,10 +545,10 @@ int main()
 
 
 
-	for (int i = 0; i < m; ++i) {
-		delete[] mas[n];
-	}
-	delete[] mas[m];
+	/*for (int i = 0; i < m; ++i) {
+		delete[] mas[m];
+	}*/
+	delete[] mas;
 
 
 
