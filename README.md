@@ -1,116 +1,111 @@
 # First-repository
 My first repository
 ```
-//#include <iostream>
-//#include <cmath>
-//#include <chrono>
-//double middleelement;
-//void AllocateMemory(double**& mas, int size) {
-//	mas = new double* [size];
-//	for (int i = 0; i < size; ++i) {
-//		mas[i] = new double[size];
-//	}
-//
-//}
-//void FillAB(double**& mas1, double**& mas2, int size) {
-//	for (int i = 0; i < size; ++i) {
-//		for (int j = 0; j < size; ++j) {
-//			mas1[i][j] = std::sin(i - j);
-//		}
-//	}
-//	for (int i = 0; i < size; ++i) {
-//		for (int j = 0; j < size; ++j) {
-//			mas2[i][j] = 1.0 / (i + j + 1.0);
-//		}
-//	}
-//}
-//void FillZero(double**& mas, int size) {
-//	for (int i = 0; i < size; ++i) {
-//		for (int j = 0; j < size; ++j) {
-//			mas[i][j] = 0;
-//		}
-//	}
-//}
-//double MultiplyIJK(double**& mas1, double**& mas2, double**& mas3, int size) {
-//	auto start = std::chrono::steady_clock::now();
-//	for (int i = 0; i < size; ++i) {
-//		for (int j = 0; j < size; ++j) {
-//			for (int k = 0; k < size; ++k) {
-//				mas3[i][j] += mas1[i][k] * mas2[k][j];
-//				
-//			}
-//		}
-//	}
-//	
-//	if (size % 2 != 0) {
-//		middleelement = mas3[size / 2][size / 2];
-//	}
-//	else {
-//		middleelement = mas3[(size / 2) - 1][(size / 2) - 1];
-//	}
-//	
-//	auto finish = std::chrono::steady_clock::now();
-//	std::chrono::duration<double> time = finish - start;
-//
-//	return time.count();
-//
-//}
-//
-//void ReleaseMemory(double**& mas, int size) {
-//	for (int i = 0; i < size; ++i) {
-//		delete[] mas[i];
-//	}
-//	delete[] mas;
-//
-//}
-////double MiddleElement(double**& mas3, int size) {
-////	double middleelement;
-////	if (size % 2 != 0) {
-////		middleelement = mas3[size / 2][size / 2];
-////	}
-////	else {
-////		middleelement = mas3[(size / 2) - 1][(size / 2) - 1];
-////	}
-////	return middleelement;
-////}
-//
-//int main()
-//{
-//	int  n, helpvariable1;
-//	int Numflops, Numflopspersec;
-//	std::cout << "Enter sixe of matrix: ";
-//	std::cin >> n;
-//	Numflops = n * n * n;
-//	helpvariable1 = 1ULL << 30;
-//	double** A;
-//	double** B;
-//	double** C;
-//	AllocateMemory(A, n);
-//	AllocateMemory(B, n);
-//	AllocateMemory(C, n);
-//	FillAB(A, B, n);
-//	FillZero(C, n);
-//	double assignment = MultiplyIJK(A, B, C, n);
-//	std::cout << "Time: " << assignment << "seconds" << std::endl;
-//	ReleaseMemory(A, n);
-//	ReleaseMemory(B, n);
-//	ReleaseMemory(C, n);
-//	/*double middd = MiddleElement(C, n);
-//	std::cout << middd<<std::endl;*/
-//
-//	std::cout <<"Middle Element: " << middleelement << std::endl;
-//	Numflopspersec = (Numflops /  assignment); // helpvariable1;
-//	std::cout <<"Num of flops: "<< Numflopspersec << std::endl;
-//	
-//
-//
-//
-//
-//
-//
-//
-//	return 0;
-//}
+#include <iostream>
+#include <cmath>
+#include <chrono>
+
+void AllocateMemory(double**& mas, int size) {
+	mas = new double* [size];
+	for (int i = 0; i < size; ++i) {
+		mas[i] = new double[size];
+	}
+
+}
+void FillAB(double**& mas1, double**& mas2, int size) {
+	for (int i = 0; i < size; ++i) {
+		for (int j = 0; j < size; ++j) {
+			mas1[i][j] = std::sin(i - j);
+		}
+	}
+	for (int i = 0; i < size; ++i) {
+		for (int j = 0; j < size; ++j) {
+			mas2[i][j] = 1.0 / (i + j + 1.0);
+		}
+	}
+}
+void FillZero(double**& mas, int size) {
+	for (int i = 0; i < size; ++i) {
+		for (int j = 0; j < size; ++j) {
+			mas[i][j] = 0;
+		}
+	}
+}
+double MultiplyIJK(double**& mas1, double**& mas2, double**& mas3, int size) {
+	auto start = std::chrono::steady_clock::now();
+	for (int i = 0; i < size; ++i) {
+		for (int j = 0; j < size; ++j) {
+			for (int k = 0; k < size; ++k) {
+				mas3[i][j] += mas1[i][k] * mas2[k][j];
+				
+			}
+		}
+	}
+	
+	
+	
+	auto finish = std::chrono::steady_clock::now();
+	std::chrono::duration<double> time = finish - start;
+
+	return time.count();
+
+}
+
+void ReleaseMemory(double**& mas, int size) {
+	for (int i = 0; i < size; ++i) {
+		delete[] mas[i];
+	}
+	delete[] mas;
+
+}
+
+
+int main()
+{
+	int  n;
+	
+	std::cout << "Enter size of matrix: ";
+	std::cin >> n;
+	
+	double** A;
+	double** B;
+	double** C;
+	AllocateMemory(A, n);
+	AllocateMemory(B, n);
+	AllocateMemory(C, n);
+
+
+	FillAB(A, B, n);
+
+	FillZero(C, n);
+
+	double assignment = MultiplyIJK(A, B, C, n);
+	std::cout << "Time: " << assignment << "seconds" << std::endl;
+
+
+	
+
+
+	double middd = C[n / 2][n / 2];
+	
+
+
+	double Numflopspersec;
+	std::cout <<"Middle Element: " << middd << std::endl;
+	Numflopspersec = (2.0 * n * n * n /  assignment) / (1<<30);
+	std::cout <<"Num of Gflops: "<< Numflopspersec << std::endl;
+	
+
+	ReleaseMemory(A, n);
+	ReleaseMemory(B, n);
+	ReleaseMemory(C, n);
+
+
+
+
+
+	return 0;
+}
 ```
 
 
