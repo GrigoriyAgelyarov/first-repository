@@ -108,7 +108,256 @@ int main()
 }
 ```
 
+```
+#include <iostream>
+#include <cmath>
+#include <chrono>
 
+void AllocateMemory(double*& mas, int size) {
+	
+	mas = new double [size];
+	/*for (int i = 0; i < size; ++i) {
+		mas[i] = new double[size];
+	}*/
+
+}
+void FillAB(double*& mas1, double*& mas2, int size) {
+	for (int i = 0; i < size; ++i) {
+		for (int j = 0; j < size; ++j) {
+			mas1[i*size + j] = std::sin(i - j);
+		}
+	}
+	for (int i = 0; i < size; ++i) {
+		for (int j = 0; j < size; ++j) {
+			mas2[i*size + j] = 1.0 / (i + j + 1.0);
+		}
+	}
+}
+void FillZero(double*& mas, int size) {
+	for (int i = 0; i < size; ++i) {
+		for (int j = 0; j < size; ++j) {
+			mas[i*size + j] = 0;
+		}
+	}
+}
+double MultiplyIJK(double*& mas1, double*& mas2, double*& mas3, int size) {
+	auto start = std::chrono::steady_clock::now();
+	for (int i = 0; i < size; ++i) {
+		for (int j = 0; j < size; ++j) {
+			for (int k = 0; k < size; ++k) {
+				mas3[i*size + j] += mas1[i*size + k] * mas2[k*size + j];
+
+			}
+		}
+	}
+
+
+
+	auto finish = std::chrono::steady_clock::now();
+	std::chrono::duration<double> time = finish - start;
+
+	return time.count();
+
+}
+double MultiplyJKI(double*& mas1, double*& mas2, double*& mas3, int size) {
+	auto start = std::chrono::steady_clock::now();
+	for (int j = 0; j < size; ++j) {
+		for (int k = 0; k < size; ++k) {
+			for (int i = 0; i < size; ++i) {
+				mas3[i * size + j] += mas1[i * size + k] * mas2[k * size + j];
+
+			}
+		}
+	}
+
+
+
+	auto finish = std::chrono::steady_clock::now();
+	std::chrono::duration<double> time = finish - start;
+
+	return time.count();
+
+}
+double MultiplyKIJ(double*& mas1, double*& mas2, double*& mas3, int size) {
+	auto start = std::chrono::steady_clock::now();
+	for (int k = 0; k < size; ++k) {
+		for (int i = 0; i < size; ++i) {
+			for (int j = 0; j < size; ++j) {
+				mas3[i * size + j] += mas1[i * size + k] * mas2[k * size + j];
+
+			}
+		}
+	}
+
+
+
+	auto finish = std::chrono::steady_clock::now();
+	std::chrono::duration<double> time = finish - start;
+
+	return time.count();
+
+}
+double MultiplyIKJ(double*& mas1, double*& mas2, double*& mas3, int size) {
+	auto start = std::chrono::steady_clock::now();
+	for (int i = 0; i < size; ++i) {
+		for (int k = 0; k < size; ++k) {
+			for (int j = 0; j < size; ++j) {
+				mas3[i * size + j] += mas1[i * size + k] * mas2[k * size + j];
+
+			}
+		}
+	}
+
+
+
+	auto finish = std::chrono::steady_clock::now();
+	std::chrono::duration<double> time = finish - start;
+
+	return time.count();
+
+}
+double MultiplyJIK(double*& mas1, double*& mas2, double*& mas3, int size) {
+	auto start = std::chrono::steady_clock::now();
+	for (int j = 0; j < size; ++j) {
+		for (int i = 0; i < size; ++i) {
+			for (int k = 0; k < size; ++k) {
+				mas3[i * size + j] += mas1[i * size + k] * mas2[k * size + j];
+
+			}
+		}
+	}
+
+
+
+	auto finish = std::chrono::steady_clock::now();
+	std::chrono::duration<double> time = finish - start;
+
+	return time.count();
+
+}
+double MultiplyKJI(double*& mas1, double*& mas2, double*& mas3, int size) {
+	auto start = std::chrono::steady_clock::now();
+	for (int k = 0; k < size; ++k) {
+		for (int j = 0; j < size; ++j) {
+			for (int i = 0; i < size; ++i) {
+				mas3[i * size + j] += mas1[i * size + k] * mas2[k * size + j];
+
+			}
+		}
+	}
+
+
+
+	auto finish = std::chrono::steady_clock::now();
+	std::chrono::duration<double> time = finish - start;
+
+	return time.count();
+
+}
+
+void ReleaseMemory(double*& mas, int size) {
+	/*for (int i = 0; i < size; ++i) {
+		delete[] mas[i];
+	}*/
+	delete[] mas;
+
+}
+
+
+int main()
+{
+	int  n;
+
+	std::cout << "Enter size of matrix: ";
+	std::cin >> n;
+
+	double* A;
+	double* B;
+	double* C;
+	AllocateMemory(A, n);
+	AllocateMemory(B, n);
+	AllocateMemory(C, n);
+
+
+	FillAB(A, B, n);
+
+	FillZero(C, n);
+	double assignment = MultiplyIJK(A, B, C, n);
+	std::cout << "Time IJK: " << assignment << "seconds" << std::endl;
+	double middd = C[n / 2][n / 2];
+	double Numflopspersec;
+	std::cout << "Middle Element: " << middd << std::endl;
+	Numflopspersec = (2.0 * n * n * n / assignment) / (1 << 30);
+	std::cout << "Num of Gflops: " << Numflopspersec << std::endl;
+
+
+
+
+	FillZero(C, n);
+	double assignment = MultiplyJKI(A, B, C, n);
+	std::cout << "Time JKI: " << assignment << "seconds" << std::endl;
+	double middd = C[n / 2][n / 2];
+	double Numflopspersec;
+	std::cout << "Middle Element: " << middd << std::endl;
+	Numflopspersec = (2.0 * n * n * n / assignment) / (1 << 30);
+	std::cout << "Num of Gflops: " << Numflopspersec << std::endl;
+
+
+
+
+
+	FillZero(C, n);
+	double assignment = MultiplyKIJ(A, B, C, n);
+	std::cout << "Time KIJ: " << assignment << "seconds" << std::endl;
+	double middd = C[n / 2][n / 2];
+	double Numflopspersec;
+	std::cout << "Middle Element: " << middd << std::endl;
+	Numflopspersec = (2.0 * n * n * n / assignment) / (1 << 30);
+	std::cout << "Num of Gflops: " << Numflopspersec << std::endl;
+
+	FillZero(C, n);
+	double assignment = MultiplyIKJ(A, B, C, n);
+	std::cout << "Time IKJ: " << assignment << "seconds" << std::endl;
+	double middd = C[n / 2][n / 2];
+	double Numflopspersec;
+	std::cout << "Middle Element: " << middd << std::endl;
+	Numflopspersec = (2.0 * n * n * n / assignment) / (1 << 30);
+	std::cout << "Num of Gflops: " << Numflopspersec << std::endl;
+
+
+	FillZero(C, n);
+	double assignment = MultiplyJIK(A, B, C, n);
+	std::cout << "Time JIK: " << assignment << "seconds" << std::endl;
+	double middd = C[n / 2][n / 2];
+	double Numflopspersec;
+	std::cout << "Middle Element: " << middd << std::endl;
+	Numflopspersec = (2.0 * n * n * n / assignment) / (1 << 30);
+	std::cout << "Num of Gflops: " << Numflopspersec << std::endl;
+
+
+
+
+	FillZero(C, n);
+	double assignment = MultiplyKJI(A, B, C, n);
+	std::cout << "Time KJI: " << assignment << "seconds" << std::endl;
+	double middd = C[n / 2][n / 2];
+	double Numflopspersec;
+	std::cout << "Middle Element: " << middd << std::endl;
+	Numflopspersec = (2.0 * n * n * n / assignment) / (1 << 30);
+	std::cout << "Num of Gflops: " << Numflopspersec << std::endl;
+
+
+	ReleaseMemory(A, n);
+	ReleaseMemory(B, n);
+	ReleaseMemory(C, n);
+
+
+
+
+
+	return 0;
+}
+```
 
 
 
