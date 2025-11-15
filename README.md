@@ -3,6 +3,49 @@ My first repository
 ```
 #include <iostream>
 #include <cmath>
+
+int main() {
+    long double a, b, c, x, x1, x2, D;
+    std::cin >> a >> b >> c;
+
+    if (a == 0) {
+        if (b == 0) {
+            if (c == 0) {
+                std::cout << "X any value";    
+            }
+            else {
+                std::cout << "No solutions";        
+            }
+        }
+        else {
+            x = -c / b;
+            std::cout << x;
+        }
+        return 0;
+    }
+
+   
+    D = b * b - 4 * a * c;
+
+    if (D > 0) {
+        x1 = (-b - sqrt(D)) / (2 * a);
+        x2 = (c / (a * x1));
+        std::cout   << x1 << " " << x2;
+    }
+    else if (D == 0) {
+        x = -b / (2 * a);
+        std::cout  << x;
+    }
+    else {
+        std::cout << "No solutions";
+    }
+
+    return 0;
+}
+```
+```
+#include <iostream>
+#include <cmath>
 #include <chrono>
 
 void AllocateMemory(double**& mas, int size) {
