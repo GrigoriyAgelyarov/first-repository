@@ -5,7 +5,7 @@ My first repository
 #include <cmath>
 
 int main() {
-    long double a, b, c, x, x1, x2, D;
+    double a, b, c, x, x1, x2, D;
     std::cin >> a >> b >> c;
 
     if (a == 0) {
