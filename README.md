@@ -175,7 +175,7 @@ int main()
 		min += mas[0][j];
 	}
 	/*std::cout << min;*/
-	max = mas[0][0];
+	
 	//на строчки
 	int cnt = 0;
 	int cntstring = 0;
@@ -194,12 +194,12 @@ int main()
 	/*++cntstring;*/
 	//std::cout << cntstring << std::endl;
 	for (int i = cntstring; i < (m - 1); ++i) {
-		
-			std::swap(mas[i], mas[i + 1]);
-		
+		int* temp = mas[i];
+		mas[i] = mas[i + 1];
+		mas[i + 1] = temp;
 	}
-	
-	
+
+
 
 
 
@@ -215,7 +215,7 @@ int main()
 
 
 
-
+	max = mas[0][0];
 	// столбцы
 	int cnt2 = 0;
 	int cntcolumns = 0;
@@ -230,25 +230,36 @@ int main()
 		}
 	}
 	/*std::cout << cntcolumns<<std::endl;*/
-	/*for (int j = cntcolumns; j < (n - 1); ++j) {
+	for (int j = cntcolumns; j < (n - 1); ++j) {
 		for (int i = 0; i < n; ++i) {
-			std::swap(mas[i][j], mas[i][j + 1]);
+			int temp = mas[i][j];
+			mas[i][j] = mas[i][j + 1];
+			mas[i][j + 1] = temp;
 		}
-		
-	}*/
-	for (int j = cntcolumns; j < n - 1; ++j) { 
+
+	}
+
+
+
+
+
+	/*for (int j = cntcolumns; j < n - 1; ++j) {
 		for (int i = 0; i < m; ++i) {
 			int* ptr_col1 = &mas[i][j];
 			int* ptr_col2 = &mas[i][j + 1];
 			std::swap(*ptr_col1, *ptr_col2);
 		}
-	}
+	}*/
+
+
+
+
 	/*for (int j = cntcolumns; j < n - 1; ++j) {
-		 
+
 			int* ptr_col1 = &mas[i][j];
 			int* ptr_col2 = &mas[i][j + 1];
 			std::swap(*ptr_col1, *ptr_col2);
-		
+
 	}*/
 
 
