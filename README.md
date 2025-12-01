@@ -1,80 +1,14 @@
 # First-repository
 My first repository
 ```
-//#include <iostream>
-//#include <cmath>
-//int main() {
-//    double a, b, c;
-//    std::cin >> a >> b >> c;
-//    double eps = 1e-10;
-//    if (a == 0) {
-//        if (b == 0) {
-//            if (c == 0) {
-//                std::cout << "X any value";
-//            }
-//            else {
-//                std::cout << "No solutions";
-//            }
-//        }
-//        else {
-//            double x = -c / b;
-//        if (abs(b * x + c) < eps * abs(c)) {
-//                std::cout << x;
-//        }
-//          else {
-//                std::cout << "No solutions";
-//          }
-//        }
-//        return 0;
-//    }
-//    double D = b * b - 4 * a * c;
-//    if (D > eps) {
-//        double x1 = (-b - sqrt(D)) / (2 * a);
-//        double x2 = (c / (a * x1));
-//        std::cout << x1 << " " << x2;
-//    }
-//    else if (abs(D) < eps) {
-//        double x = -b / (2 * a);
-//    if (abs(a * x * x + b * x + c) < eps * (abs(a * x * x) + abs(b * x) + abs(c))) {
-//            std::cout << x;
-//        }
-//        else {
-//            std::cout << "No solutions";
-//        }
-//    }
-//    else {
-//        std::cout << "No solutions";
-//    }
-//     return 0;
-//}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #include <iostream>
 #include <cmath>
-
 
 int main() {
     double a, b, c;
     std::cin >> a >> b >> c;
 
-   
-    double eps = 1e-11;
+    double eps = 1e-10;
     if (a == 0) {
         if (b == 0) {
             if (c == 0) {
@@ -86,8 +20,17 @@ int main() {
         }
         else {
             double x = -c / b;
-            
-            if (abs(b * x + c) <= eps * std::max(abs(b * x), abs(c))) {
+
+            double l1 = abs(b * x + c);
+            double r1 = abs(b * x);
+            double r2 = abs(c);
+
+            double max1 = r1;
+            if (r2 > max1) {
+                max1 = r2;
+            }
+
+            if (l1 <= eps * max1) {
                 std::cout << x;
             }
             else {
@@ -99,20 +42,58 @@ int main() {
 
     double D = b * b - 4 * a * c;
 
-    if (D > eps * std::max(b * b, 4 * abs(a * c))) {
+   
+    double help1 = b * b;
+    double help2 = 4 * abs(a * c);
+    double maxD = help1;
+    if (help2 > maxD) {
+        maxD = help2;
+    }
+
+    if (D > eps * maxD) {
         double x1, x2;
         x1 = (-b - sqrt(D)) / (2 * a);
         x2 = (-b + sqrt(D)) / (2 * a);
-        if (abs(a * x1 * x1 + b * x1 + c) <= eps * (abs(a * x1 * x1) + abs(b * x1) + abs(c))) {
+
+        double ll1 = abs(a * x1 * x1 + b * x1 + c);
+        double rr1 = abs(a * x1 * x1);
+        double rr2 = abs(b * x1);
+        double rr3 = abs(c);
+
+       
+        double max2 = rr1;
+        if (rr2 > max2) {
+            max2 = rr2;
+        }
+        if (rr3 > max2) {
+            max2 = rr3;
+        }
+
+        if (ll1 <= eps * max2) {
             std::cout << x1 << " " << x2;
         }
         else {
             std::cout << "No solutions";
         }
     }
-    else if (abs(D) <= eps * std::max(b * b, 4 * abs(a * c))) {
+    else if (abs(D) <= eps * maxD) {
         double x = -b / (2 * a);
-        if (abs(a * x * x + b * x + c) <= eps * (abs(a * x * x) + abs(b * x) + abs(c))) {
+
+        double ll2 = abs(a * x * x + b * x + c);
+        double rr4 = abs(a * x * x);
+        double rr5 = abs(b * x);
+        double rr6 = abs(c);
+
+       
+        double max3 = rr4;
+        if (rr5 > max3) {
+            max3 = rr5;
+        }
+        if (rr6 > max3) {
+            max3 = rr6;
+        }
+
+        if (ll2 <= eps * max3) {
             std::cout << x;
         }
         else {
@@ -120,7 +101,6 @@ int main() {
         }
     }
     else {
-        
         std::cout << "No solutions";
     }
 
