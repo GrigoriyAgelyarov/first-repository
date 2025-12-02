@@ -110,7 +110,6 @@ int main() {
 ```
 ```
 #include <iostream>
-#include <algorithm>
 int main()
 {
 	int n, m;
@@ -192,8 +191,8 @@ int main()
 			cntcolumns = j;
 		}
 	}
-	for (int j = cntcolumns; j < (n - 1); ++j) {
-		for (int i = 0; i < m; ++i) {
+	for (int i = 0; i < m; ++i) {
+		for (int j = cntcolumns; j < (n - 1); ++j){
 			int* ptr1 = &mas[i][j];
 			int* ptr2 = &mas[i][j + 1];
 			int temp = *ptr1;
@@ -201,7 +200,7 @@ int main()
 			*ptr2 = temp;
 		}
 	}
-	
+
 	for (int i = 0; i < m; ++i) {
 		for (int j = 0; j < n; ++j) {
 			std::cout << mas[i][j] << " ";
