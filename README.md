@@ -2,6 +2,35 @@
 My first repository
 ```
 #include <iostream>
+#include <vector>
+int main() {
+    int n, dist;
+    std::cin >> n >> dist;
+    std::vector<int> a;
+    int hlp;
+    for (int i = 0; i < n;++i) {
+        std::cin >> hlp;
+        a.push_back(hlp);
+    }
+    int l = 0;
+    int r = 1;
+    long long cnt = 0;
+    while ((a[r] - a[l]) <= dist) {
+        r++;
+        while (r < n-1) {
+            if ((a[r] - a[l]) > dist) {
+                l++;
+            }
+            else {
+                cnt += n - r;
+            }
+        }
+    }
+    std::cout << cnt;
+}
+```
+```
+#include <iostream>
 #include <cmath>
 
 int main() {
