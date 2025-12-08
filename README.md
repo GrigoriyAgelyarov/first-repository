@@ -36,8 +36,8 @@ int main() {
 int main() {
     double a, b, c;
     std::cin >> a >> b >> c;
+	double eps = std::numeric_limits<double>::epsilon();
 
-    double eps = 1e-10;
     if (a == 0) {
         if (b == 0) {
             if (c == 0) {
