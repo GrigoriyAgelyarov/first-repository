@@ -30,50 +30,49 @@ int main() {
 }
 ```
 ```
-#include <iostream>
-#include <cmath>
-#include <limits>
-int main() {
-    double a, b, c;
-    std::cin >> a >> b >> c;
-    const double eps = std::numeric_limits<double>::epsilon();
-    if (a == 0) {
-        if (b == 0) {
-            if (c == 0) {
-                std::cout << "X any value";
-            }
-            else {
-                std::cout << "No solutions";
-            }
-        }
-        else {
-            double x = -c / b;
-            std::cout << x;
-        }
-        return 0;
-    }
-    double D = b * b - 4 * a * c;
-    double help1 = b * b;
-    double help2 = 4 * fabs(a * c);
-    double maxD = help1;
-    if (help2 > maxD) {
-        maxD = help2;
-    }
-    if (D > eps * maxD) {
-        double x1, x2;
-        x1 = (-b - sqrt(D)) / (2 * a);
-        x2 = c / (x1 * a);  
-    std::cout << x1 << " " << x2;
-    }
-    else if (fabs(D) <= eps * maxD) {
-        double x = -b / (2 * a);
-        std::cout << x;
-    }
-    else {
-        std::cout << "No solutions";
-    }
-    return 0;
-}
+//#include <iostream>
+//#include <cmath>
+//int main() {
+//    double a, b, c;
+//    std::cin >> a >> b >> c;
+//    double eps = 2.2e-16;
+//    if (a == 0) {
+//        if (b == 0) {
+//            if (c == 0) {
+//                std::cout << "X any value";
+//            }
+//            else {
+//                std::cout << "No solutions";
+//            }
+//        }
+//        else {
+//            double x = -c / b;
+//            std::cout << x;
+//        }
+//        return 0;
+//    }
+//    double D = b * b - 4 * a * c;
+//    double help1 = b * b;
+//    double help2 = 4 * fabs(a * c);
+//    double maxD = help1;
+//    if (help2 > maxD) {
+//        maxD = help2;
+//    }
+//    if (D > eps * maxD) {
+//        double x1, x2;
+//        x1 = (-b - sqrt(D)) / (2 * a);
+//        x2 = c / (x1 * a);
+//        std::cout << x1 << " " << x2;
+//    }
+//    else if (fabs(D) <= eps * maxD) {
+//        double x = -b / (2 * a);
+//        std::cout << x;
+//    }
+//    else {
+//        std::cout << "No solutions";
+//    }
+//    return 0;
+//}
 
 ```
 ```
