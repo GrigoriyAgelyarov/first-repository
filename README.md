@@ -3,6 +3,78 @@ My first repository
 ```
 #include <iostream>
 #include <vector>
+#include <string>
+
+struct Discipline {
+    std::string name;
+    int mark;
+};
+
+struct Student {
+    std::string fio;
+    std::vector<Discipline> disciplines;
+};
+
+int main() {
+    std::cout << "Enter number of students: ";
+    int n;
+    std::cin >> n;
+    std::string help;
+    std::getline(std::cin, help);
+    std::vector<Student> group;
+
+    for (int i = 0; i < n; ++i) {
+        Student student;
+        
+
+        std::cout << "Enter FIO of the student: " << std::endl;
+        std::getline(std::cin, student.fio); 
+        int n2;
+        std::cout << "Enter number of disciplines: ";
+        std::cin >> n2;
+        std::getline(std::cin, help); 
+
+        if (n2 <= 3) {
+            std::cout << "Less than 4 disciplines :(\n";
+            continue;
+        }
+
+        for (int j = 0; j < n2; ++j) {
+            Discipline discipline;
+            std::cout << "Enter the name of discipline: " << std::endl;
+            std::getline(std::cin, discipline.name); 
+
+            std::cout << "Enter mark: ";
+            std::cin >> discipline.mark;
+            std::getline(std::cin, help); 
+
+            student.disciplines.push_back(discipline);
+        }
+
+        group.push_back(student);
+    }
+
+    int cnt = 0;
+
+    for (int i = 0; i < group.size(); ++i) {
+        Student student = group[i];
+        for (int j = 0; j < student.disciplines.size(); ++j) {
+            Discipline discipline = student.disciplines[j];
+
+            if (discipline.mark == 2) {
+                cnt++;
+                break;
+            }
+        }
+    }
+
+    std::cout << "Number of students with '2': " << cnt << std::endl;
+    return 0;
+}
+```
+```
+#include <iostream>
+#include <vector>
 int main() {
     int n, dist;
     std::cin >> n >> dist;
