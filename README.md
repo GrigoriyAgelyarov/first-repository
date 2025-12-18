@@ -3,6 +3,40 @@ My first repository
 ```
 #include <iostream>
 #include <vector>
+
+
+int main() {
+	int n;
+	int tmp = 1000000007;
+	std::cin >> n;
+	int help;
+	std::vector<int> a;
+	for (int i = 0; i < n; ++i) {
+		std::cin >> help;
+		a.push_back(help);
+	}
+	int l = 0;
+
+	long long sum = 0;
+	
+
+	while ((l + 2) < n) {
+    sum += (a[l] * a[l+1]*a[l+2])%tmp;
+    
+		
+		++l;
+		
+
+
+	}
+	
+	std::cout << sum;
+	return 0;
+}
+```
+```
+#include <iostream>
+#include <vector>
 #include <string>
 
 struct Discipline {
