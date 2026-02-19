@@ -2,6 +2,53 @@
 My first repository
 ```
 #include <iostream>
+#include <string>
+#include <vector>
+#include <list>
+class LiverpoolFC{
+	int goals;
+	std::string name;
+};
+class HashTable {
+private:
+	struct Entry {
+		std::string key;
+		LiverpoolFC value;
+		bool isDeleted;
+	};
+	std::vector<Entry*> table;
+	size_t capacity;
+	size_t size_;
+	size_t hashString(const std::string& s) const {
+		const long long p = 31;
+		const long long M = 1e9 + 7;
+		long long h = 0;
+		for (size_t i = 0; i < s.length(); ++i) {
+			h = (h * p + s[i]) & M;
+		}
+		return static_cast<size_t>(h);
+
+	}
+	size_t hashInt(int g) const {
+		return ((g << 5) ^ (g >> 3)) & 0x7FFFFFFF;
+	}
+	size_t getIndex(const std::string& key, int goals) const {
+		size_t strHash = hashString(key);
+		size_t intHash = hashString(key);
+		return(strHash ^ intHash) % capacity;
+	}
+};
+
+
+int main()
+{
+   
+}
+
+
+```
+```
+#include <iostream>
 #include <vector>
 
 
