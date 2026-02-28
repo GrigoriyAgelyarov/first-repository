@@ -2,6 +2,325 @@
 My first repository
 ```
 #include <iostream>
+
+class vector {
+	double x;
+	double y;
+	double z;
+public:
+	vector operator+(const vector& b);
+
+	vector operator-(const vector& b);
+
+	void set(double x_, double y_, double z_) { x = x_; y = y_; z = z_; };
+
+	friend std::ostream& operator<<(std::ostream& str, const vector& c); //мы типо не меняем значения ну и типо доступ к приватным x y z
+
+	vector operator++(int); // int если постфиксный декремент 
+	vector operator++();
+	vector operator--(int);
+	vector operator--();
+
+	double& operator[](int i);
+	const double& operator[](int i) const;
+	vector operator+();
+	vector operator-();
+	vector operator*(const vector& b);
+	vector operator/(const vector& b);
+	vector operator*(double i);
+	friend vector operator*(double i, const vector& v); //???
+	vector operator/(double i);
+	vector operator*=(double i);
+	vector operator/=(double i);
+	double operator&(const vector& b);
+	double length() { return sqrt(x * x + y * y + z * z); };
+	vector operator^(const vector& b);
+	vector normalize();
+	vector normalize(double i);
+	vector unit();
+	vector unit(double i);
+	vector proj(vector& b);
+	vector rotate(vector& b, double fi);
+};
+```
+```
+#include "vec.h"
+#include <cmath>
+vector vector::operator+ (const vector& b) { // слева объект справа то, что принимаем
+	vector c;
+	c.x = x + b.x;
+	c.y = y + b.y;
+	c.z = z + b.z;
+	return c;
+}
+std::ostream& operator<<(std::ostream& str, const vector& c) { // тут типо слева когда выводим идет строка, а справа вектор как раз, поэтому такая запись 
+	str << c.x << " " << c.y << " " << c.z;
+	return str;
+}
+vector vector::operator-(const vector& b) {
+	vector c;
+	c.x = x - b.x;
+	c.y = y - b.y;
+	c.z = z - b.z;
+	return c;
+}
+vector vector::operator++(int) {
+	vector c= *this;
+	this->x += 1;
+	this->y += 1;
+	this->z += 1;
+	return c;
+}
+vector vector::operator++() {
+	x += 1;
+	y += 1;
+	z += 1;
+	return *this;
+	/*this->x += 1;
+	this->y += 1;
+	this->z += 1;
+	return *this;*/ // разница способов
+}
+vector vector::operator--(int) {
+	vector c = *this;
+	this->x -= 1;
+	this->y -= 1;
+	this->z -= 1;
+	return c;
+}
+vector vector::operator--() {
+	this->x -= 1;
+	this->y -= 1;
+	this->z -= 1;
+	return *this;
+
+}
+double& vector::operator[](int i) { //(возможно изменение)
+	switch (i) {
+	case 0:
+		return x;
+	case 1:
+		return y;
+	case 2:
+		return z;
+	}
+}
+const double& vector::operator[](int i) const { // 2 конст - мы не меняем какие-то значения в функции, а 1 конст нельзя изменять элементы(чтение)
+	switch (i) {
+	case 0:
+		return x;
+	case 1:
+		return y;
+	case 2:
+		return z;
+	}
+}
+vector vector::operator+() {
+	return *this;
+}
+vector vector::operator-() {
+	x *= (-1);
+	y *= (-1);
+	z *= (-1);
+	return *this;
+}
+vector vector::operator*(const vector& b) {
+	vector c;
+	c.x = x * b.x;
+	c.y = y * b.y;
+	c.z = z * b.z;
+	return c;
+}
+vector vector::operator/(const vector& b) {
+	vector c;
+	c.x = x / b.x;
+	c.y = y / b.y;
+	c.z = z / b.z;
+	return c;
+}
+vector vector::operator*(double i) {
+	vector c;
+	c.x = x * i;
+	c.y = y * i;
+	c.z = z * i;
+	return c;
+}
+vector operator*(double i, const vector& b) {
+	vector c;
+	c.x = i * b.x;
+	c.y = i * b.y;
+	c.z = i * b.z;
+	return c;
+}
+vector vector::operator/(double i) {
+	vector c;
+	c.x = x / i;
+	c.y = y / i;
+	c.z = z / i;
+	return c;
+}
+vector vector::operator*=(double i) {
+	x *= i;
+	y *= i;
+	z *= i;
+	return *this;
+}
+vector vector::operator/=(double i) {
+	x /= i;
+	y /= i;
+	z /= i;
+	return *this;
+}
+double vector::operator&(const vector& b) { //без ссылки, так как c временная переменная
+	double c;
+	c = x * b.x + y * b.y + z * b.z;
+	return c;
+}
+vector vector::operator^(const vector& b) { // ?????? вернуть вектор или длину вектора? "используем eps" теперь во всех задачах с double?
+	vector c;
+	double eps = 2.2e-16;
+	c.x = y * b.z - z * b.y;
+	c.y = - (x * b.z - z * b.x);
+	c.z = x * b.y - y * b.x;
+	if (fabs(c.x) < eps) {
+		c.x = 0;
+	}
+	if (fabs(c.y) < eps) {
+		c.y = 0;
+	}
+	if (fabs(c.z) < eps) {
+		c.z = 0;
+	}
+	return c;
+}
+vector vector::normalize() {
+	double w = (*this).length();
+	this->x = x / w;
+	this->y = y / w;
+	this->z = z / w;
+	return *this;
+}
+vector vector::normalize(double i) {
+	double w = (*this).length();
+	this->x = (x / w) * i;
+	this->y = (y / w) * i;
+	this->z = (z / w) * i;
+	return *this;
+	
+}
+vector vector::unit() {
+	vector c = *this;
+	c.normalize();
+	return c;
+}
+vector vector::unit(double i) {
+	vector c = *this;
+	c.normalize(i);
+	return c;
+}
+vector vector::proj(vector& b) {
+	vector c = *this;
+	c = ((*this & b) / (b & b)) * b;
+	return c;
+}
+vector vector::rotate(vector& b, double fi) {
+
+}
+```
+```
+#include <iostream>
+#include "vec.h"
+
+int main()
+{
+    vector a, b, c, d;
+    double w;
+    a.set(1.0, 2.0, 3.0);
+    b.set(0.1, 0.2, 0.3);
+
+    c = a + b;
+    std::cout << c << std::endl;
+
+    c = a - b;
+    std::cout << c << std::endl;
+
+    c = a++;
+    std::cout << a << " " << c << std::endl;
+
+    a.set(1.0, 2.0, 3.0);
+    c = ++a;
+    std::cout << a << " " << c << std::endl;
+
+    a.set(1.0, 2.0, 3.0);
+    c = a--;
+    std::cout << a << " " << c << std::endl;
+
+    a.set(1.0, 2.0, 3.0);
+    //a[0] = 3.2;
+    c = --a;
+    std::cout << a << " " << c << std::endl;
+
+    a.set(1.0, -2.0, 3.0);
+    /*c = +a;
+    d = -a;
+    std::cout << c << " " << d << std::endl;*/
+    std::cout << (+a) << " " << (-a) << std::endl;
+
+    a.set(1.0, 2.0, 3.0);
+    b.set(0.1, 0.2, 0.3);
+
+    c = a * b;
+    std::cout << c << std::endl;
+
+    c = (a / b);
+    std::cout << c << std::endl;
+
+    
+    c = a * 2.0;
+    std::cout << c << std::endl;
+ 
+    c = 2.0 * a;
+    std::cout << c << std::endl;
+
+    c = a / 2.0;
+    std::cout << c << std::endl;
+
+    a *= 2.0;
+    std::cout << a << std::endl;
+
+    a /= 2.0;
+    std::cout << a << std::endl;
+
+    w = a & b;
+    std::cout << w << std::endl;
+
+    std::cout << a.length() << std::endl;
+
+    a.set(1.0, 2.0, 3.0);
+    b.set(0.5, 1.25, 1.5);
+    c = a ^ b;
+    std::cout << c << std::endl;
+    b.set(0.1, 0.2, 0.3);
+
+    std::cout << (a.normalize()) << std::endl;
+
+    std::cout << (a.normalize(2)) << std::endl;
+
+    a.set(1.0, 2.0, 3.0);
+    std::cout << (a.unit()) << " " << a << std::endl;
+
+    std::cout << (a.unit(2)) << " " << a << std::endl;
+
+    a.set(1.0, 2.0, 3.0);
+    b.set(3.0, 1.5, 2.0);
+    c = a.proj(b);
+    std::cout << a.proj(b) << " " << a << " " << b << " " << std::endl;
+
+
+}
+```
+```
+#include <iostream>
 #include <string>
 #include <vector>
 #include <list>
