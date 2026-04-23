@@ -346,7 +346,46 @@ int main()
 }
 
 
+#include "bodytype.h"
+double getdist(const Characteristicbody* b) {
 
+}
+
+
+#pragma once
+#include <string>
+enum class bodytype
+{
+	star,
+	planet,
+	smallplanet,
+	satellite
+};
+
+class Characteristicbody {
+private:
+	static int counter; //один на весь класс счетчик и для всех наследников
+	int id;
+	double mass;
+	double x, y, z;
+	double period;
+	std::string name;
+	bool vidimost;
+public:
+	Characteristicbody(double mass_, double x_, double y_, double z_, double period_, const std::string& name_, bool vidimost_) : mass(mass_), x(x_), y(y_), z(z_), period(period_), name(name_), vidimost(vidimost_) { id = counter++; }
+	double getdist(const Characteristicbody* b);
+	
+	virtual bodytype gettype() const;
+
+	virtual ~Characteristicbody() {};
+
+};
+#include <iostream>
+
+int main()
+{
+    
+}
 
 
 
